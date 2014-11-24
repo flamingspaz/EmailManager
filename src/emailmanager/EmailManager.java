@@ -64,6 +64,8 @@ public class EmailManager extends JFrame
             textArea.setText(MessageData.listAll());
         } else if (e.getSource() == read) {
             new ReadMessage(idTextField.getText());
+        } else if (e.getSource() == newMessage) {
+            new NewMessage();
         } else if (e.getSource() == quit) {
             MessageData.close();
             System.exit(0);
