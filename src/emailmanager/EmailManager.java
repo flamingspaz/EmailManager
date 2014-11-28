@@ -21,6 +21,7 @@ public class EmailManager extends JFrame
         new EmailManager();
     }
 
+    
     public EmailManager() {
         setLayout(new BorderLayout());
         setSize(600, 300);
@@ -66,6 +67,8 @@ public class EmailManager extends JFrame
             new ReadMessage(idTextField.getText());
         } else if (e.getSource() == newMessage) {
             new NewMessage();
+        } else if (e.getSource() == label) {
+            new LabelMessages(idTextField.getText());
         } else if (e.getSource() == quit) {
             MessageData.close();
             System.exit(0);

@@ -5,10 +5,70 @@
  */
 package emailmanager;
 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
 /**
  *
  * @author yousef
  */
-public class LabelMessages {
+
+
     
+public class LabelMessages extends JFrame implements ActionListener {
+    public static String[] labels = {"", "Work", "Home", "Todo"}; //use this to store labels at a later point.
+    private JTextField msgId = new JTextField(2);
+    private JComboBox label = new JComboBox(labels);
+    private JButton addBtn = new JButton("Add Label"); 
+    private JButton closeBtn = new JButton("Close");
+    private JTextArea textArea = new JTextArea(); 
+    private JScrollPane scrollPane = new JScrollPane(textArea); 
+    private String id;
+    
+    private void setId(String labelid) {
+        String id = labelid;
+    }
+    
+    public LabelMessages(String labelId) {
+        id = labelId;
+        
+        setLayout(new BorderLayout()); 
+        setSize(600, 300); 
+        setResizable(false); 
+        setTitle("Label Messages"); 
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
+        JPanel top = new JPanel(new FlowLayout());
+        top.add(new JLabel("Message ID: ", SwingConstants.RIGHT));
+        top.add(msgId);
+        top.add(new JLabel("Label: ", SwingConstants.RIGHT));
+        top.add(label);
+        label.setEditable(true);
+        top.add(addBtn);
+        top.add(closeBtn);
+        add("North", top);
+        msgId.setText(id); // if the user has already entered an id, lets carry it over
+        
+        textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setPreferredSize(new Dimension(560, 200));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setPreferredSize(new Dimension(560, 200));
+        
+        JPanel middle = new JPanel();
+        middle.add(scrollPane);
+        add("Center", middle);
+
+        textArea.setText(MessageData.listAll());
+        
+        setVisible(true);
+    }
+        
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
