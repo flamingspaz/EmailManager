@@ -26,9 +26,6 @@ public class LabelMessages extends JFrame implements ActionListener {
     private JScrollPane scrollPane = new JScrollPane(textArea); 
     private String id;
     
-    private void setId(String labelid) {
-        String id = labelid;
-    }
     
     public LabelMessages(String labelId) {
         id = labelId;
@@ -60,15 +57,17 @@ public class LabelMessages extends JFrame implements ActionListener {
         JPanel middle = new JPanel();
         middle.add(scrollPane);
         add("Center", middle);
-
+        closeBtn.addActionListener(this);
         textArea.setText(MessageData.listAll());
         
         setVisible(true);
     }
         
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actionPerformed(ActionEvent e) {
+               if (e.getSource() == closeBtn) {
+                  setVisible(false);
+                  dispose();
+        }
     }
 
 }
