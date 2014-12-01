@@ -7,7 +7,6 @@ import javax.swing.*;
 
 public class EmailManager extends JFrame
         implements ActionListener {
-
     private JButton list = new JButton("List Messages");
     private JButton read = new JButton("Read Message");
     private JTextField idTextField = new JTextField(2);
