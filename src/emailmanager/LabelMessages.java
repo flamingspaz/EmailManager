@@ -66,20 +66,27 @@ public class LabelMessages extends JFrame implements ActionListener {
             setVisible(false);
             dispose();
         }
-        if (e.getSource() == addBtn) {
-            
+        if (e.getSource() == addBtn) { 
             boolean exists = false;
             for (int i = 0; i < label.getItemCount(); i++) {
                 if (label.getItemAt(i) == label.getSelectedItem().toString()) {
                     exists = true;
                 }
             }
-            
             if (!exists) {
                label.addItem(label.getSelectedItem().toString());
                
             }
-
+            if (MessageData.getMessage(msgId.getText()) != null) {
+                if (label.getSelectedItem() == null || label.getSelectedItem().toString().isEmpty()) {
+                    label.getEditor().getEditorComponent().setBackground(Color.RED);
+                }
+                else {
+                    label.getEditor().getEditorComponent().setBackground(Color.WHITE);
+                    MessageData.setLabel(msgId.getText(), label.getSelectedItem().toString());
+                    textArea.setText(MessageData.listLabelled(label.getSelectedItem().toString()));
+                }
+            }
         }
     }
 
