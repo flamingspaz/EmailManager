@@ -47,8 +47,7 @@ public class NewMessage extends JFrame implements ActionListener {
         top.add(subjectTxt);
         add("North", top);
         
-        this.addWindowListener(new WindowAdapter()
-{
+        this.addWindowListener(new WindowAdapter(){
         public void windowClosing(WindowEvent e)
         {
            confirmClose();
@@ -87,6 +86,7 @@ public class NewMessage extends JFrame implements ActionListener {
                 if (noSubConfirm == JOptionPane.YES_OPTION) {
                     // send email
                 }
+                // send email
             }
         }
     }
