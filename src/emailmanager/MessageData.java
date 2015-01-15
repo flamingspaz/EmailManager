@@ -185,7 +185,7 @@ public class MessageData {
         }
         return stars;
     }
-
+                
     public static void close() {
         // Does nothing for this static version.
         // Write a statement to close the database when you are using one

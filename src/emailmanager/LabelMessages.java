@@ -15,9 +15,9 @@ import java.util.ArrayList;
  */
 public class LabelMessages extends JFrame implements ActionListener {
 
-    public static String[] labels = {"", "Work", "Home", "Todo"}; //use this to store labels at a later point.
+    
     private JTextField msgId = new JTextField(2);
-    private JComboBox label = new JComboBox(labels);
+    private JComboBox label = new JComboBox(EmailManager.labels);
     private JButton addBtn = new JButton("Add Label");
     private JButton closeBtn = new JButton("Close");
     private JTextArea textArea = new JTextArea();
@@ -75,7 +75,6 @@ public class LabelMessages extends JFrame implements ActionListener {
             }
             if (!exists) {
                label.addItem(label.getSelectedItem().toString());
-               
             }
             if (MessageData.getMessage(msgId.getText()) != null) {
                 if (label.getSelectedItem() == null || label.getSelectedItem().toString().isEmpty()) {
@@ -85,6 +84,7 @@ public class LabelMessages extends JFrame implements ActionListener {
                     label.getEditor().getEditorComponent().setBackground(Color.WHITE);
                     MessageData.setLabel(msgId.getText(), label.getSelectedItem().toString());
                     textArea.setText(MessageData.listLabelled(label.getSelectedItem().toString()));
+                    EmailManager.refresh(); // need to use a method for this
                 }
             }
         }

@@ -13,9 +13,9 @@ public class EmailManager extends JFrame
     private JButton label = new JButton("Label Messages");
     private JButton newMessage = new JButton("New Message");
     private JButton quit = new JButton("Exit");
-    private JTextArea textArea = new JTextArea();
+    private static JTextArea textArea = new JTextArea(); // change this back to private
     private JScrollPane scrollPane = new JScrollPane(textArea);
-
+    public static String[] labels = {"", "Work", "Home", "Todo"}; //use this to store labels at a later point.
     public static void main(String[] args) {
         new EmailManager();
     }
@@ -59,6 +59,10 @@ public class EmailManager extends JFrame
         setVisible(true);
     }
 
+    public static void refresh() {
+        textArea.setText(MessageData.listAll());
+    }
+    
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
             textArea.setText(MessageData.listAll());

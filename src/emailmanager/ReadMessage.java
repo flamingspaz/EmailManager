@@ -63,6 +63,7 @@ public class ReadMessage extends JFrame
             int priorityValue = Integer.parseInt(priority.getText()); // Parse the priority entered by user as an Integer
             MessageData.setPriority(id, priorityValue); // Set the priority of the message
             displayMessage(); // Redraw the text area to reflect the changes
+            EmailManager.refresh(); // redraw main window
         } else if (e.getSource() == close) { // If the close button was pressed
             dispose(); // Close the JFrame
         }
