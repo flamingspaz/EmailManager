@@ -84,6 +84,10 @@ public class MessageData {
         library.put("07", new Item("A.Student@redwich.ac.uk", "Re: Timetable",
                 "Chris@redwich.ac.uk", "thx :)", 0));
     }
+    
+    public static void sendMessage(String id, String sender, String subject, String recipient, String message, int priority) {
+        library.put(id, new Item(sender, subject, recipient, message, priority));
+    }
 
     private static String listHeader() {
         String output = "Id Priority From                           Label  Subject\n";

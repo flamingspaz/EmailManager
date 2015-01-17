@@ -77,15 +77,13 @@ public class LabelMessages extends JFrame implements ActionListener {
                label.addItem(label.getSelectedItem().toString());
             }
             if (MessageData.getMessage(msgId.getText()) != null) {
-                if (label.getSelectedItem() == null || label.getSelectedItem().toString().isEmpty()) {
-                    label.getEditor().getEditorComponent().setBackground(Color.RED);
-                }
-                else {
-                    label.getEditor().getEditorComponent().setBackground(Color.WHITE);
+                    // used to check for empty label, see commit f3b58d5
                     MessageData.setLabel(msgId.getText(), label.getSelectedItem().toString());
                     textArea.setText(MessageData.listLabelled(label.getSelectedItem().toString()));
-                    EmailManager.refresh(); // need to use a method for this
-                }
+                    EmailManager.refresh(); 
+            }
+            else {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid Message ID.");
             }
         }
     }

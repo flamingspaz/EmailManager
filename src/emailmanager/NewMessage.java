@@ -84,10 +84,16 @@ public class NewMessage extends JFrame implements ActionListener {
             if (subjectTxt.getText().toString().isEmpty()) {
                 int noSubConfirm = JOptionPane.showConfirmDialog(null, "This message does not have a subject. Are you sure you want to send it?", "No Subject", JOptionPane.YES_NO_OPTION);
                 if (noSubConfirm == JOptionPane.YES_OPTION) {
-                    // send email
+                    MessageData.sendMessage(msgId.getText().toString(), "Chris@redwich.ac.uk", subjectTxt.getText().toString(), recipient.getText().toString(), textArea.getText().toString(), 0);
+                    EmailManager.refresh();
+                    setVisible(false);
+                    dispose();
                 }
-                // send email
             }
+                MessageData.sendMessage(msgId.getText().toString(), "Chris@redwich.ac.uk", subjectTxt.getText().toString(), recipient.getText().toString(), textArea.getText().toString(), 0);
+                EmailManager.refresh();
+                setVisible(false);
+                dispose();
         }
     }
     
