@@ -3,6 +3,7 @@ package emailmanager;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
 
 public class EmailManager extends JFrame
@@ -15,7 +16,8 @@ public class EmailManager extends JFrame
     private JButton quit = new JButton("Exit");
     private static JTextArea textArea = new JTextArea(); // change this back to private
     private JScrollPane scrollPane = new JScrollPane(textArea);
-    public static String[] labels = {"", "Work", "Home", "Todo"}; //use this to store labels at a later point.
+    private static String[] defaultLabels = {"", "Work", "Home", "Todo"}; //use this to store labels at a later point.
+    public static ArrayList<String> labels = new ArrayList<String>(Arrays.asList(defaultLabels));
     public static void main(String[] args) {
         new EmailManager();
     }

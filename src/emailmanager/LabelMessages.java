@@ -17,7 +17,7 @@ public class LabelMessages extends JFrame implements ActionListener {
 
     
     private JTextField msgId = new JTextField(2);
-    private JComboBox label = new JComboBox(EmailManager.labels);
+    private JComboBox label = new JComboBox(EmailManager.labels.toArray());
     private JButton addBtn = new JButton("Add Label");
     private JButton closeBtn = new JButton("Close");
     private JTextArea textArea = new JTextArea();
@@ -74,7 +74,9 @@ public class LabelMessages extends JFrame implements ActionListener {
                 }
             }
             if (!exists) {
+                   // need to limit the amount of previous entries maybe
                label.addItem(label.getSelectedItem().toString());
+               EmailManager.labels.add(label.getSelectedItem().toString());
             }
             if (MessageData.getMessage(msgId.getText()) != null) {
                     // used to check for empty label, see commit f3b58d5
