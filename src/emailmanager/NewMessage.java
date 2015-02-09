@@ -30,6 +30,14 @@ public class NewMessage extends JFrame implements ActionListener {
             }
     }
     
+    private void sendMessage(String Id, String sender, String recipient, String subject, String message) {
+        MessageData.setSender(Id, sender);
+        MessageData.setRecipient(Id, recipient);
+        MessageData.setSubject(Id, subject);
+        MessageData.setMessage(Id, message);
+        MessageData.setPriority(Id, 0);
+    }
+    
     public NewMessage() {
         setLayout(new BorderLayout()); 
         setSize(600, 400); 
@@ -90,7 +98,8 @@ public class NewMessage extends JFrame implements ActionListener {
                     dispose();
                 }
             }
-                MessageData.sendMessage(msgId.getText().toString(), "Chris@redwich.ac.uk", subjectTxt.getText().toString(), recipient.getText().toString(), textArea.getText().toString(), 0);
+                //MessageData.sendMessage(msgId.getText().toString(), "Chris@redwich.ac.uk", subjectTxt.getText().toString(), recipient.getText().toString(), textArea.getText().toString(), 0);
+                sendMessage(msgId.getText().toString(),"Chris@redwich.ac.uk", recipient.getText().toString(), subjectTxt.getText().toString(), textArea.getText().toString());
                 EmailManager.refresh();
                 setVisible(false);
                 dispose();

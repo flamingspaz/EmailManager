@@ -1,3 +1,5 @@
+package emailmanager;
+
 // Skeleton version of MessageData.java that links to Java Derby database.
 // NOTE: You should not have to make any changes to the other
 // Java GUI classes for this to work, if you complete it correctly.
@@ -23,7 +25,7 @@ public class MessageData {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             //Establish a connection
             String sourceURL = "jdbc:derby://localhost:1527/"
-                    + new File("EmailsDB").getAbsolutePath() + ";";
+                    + new File("EmailDB").getAbsolutePath() + ";";
             connection = DriverManager.getConnection(sourceURL, "student", "student");
             stmt = connection.createStatement();
         } // The following exceptions must be caught
@@ -116,8 +118,8 @@ public class MessageData {
             System.out.println(e);
         }
         return listLabelled(label);
-    }
-
+    }    
+    
     static String getMessage(String id) {
         try {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!
@@ -196,6 +198,13 @@ public class MessageData {
 
     static void setRecipient(String id, String to) {
         // complete this method yourself - similar to setMessage()
+        String updateStr = "UPDATE STUDENT.MESSAGES SET Too = '" + to + "' WHERE ID = '" + id + "'";
+        System.out.println(updateStr);
+        try {
+            stmt.executeUpdate(updateStr);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public static String getSender(String id) {
@@ -217,6 +226,13 @@ public class MessageData {
 
     static void setSender(String id, String from) {
         // complete this method yourself - similar to setMessage()
+        String updateStr = "UPDATE STUDENT.MESSAGES SET Sender = '" + from + "' WHERE ID = '" + id + "'";
+        System.out.println(updateStr);
+        try {
+            stmt.executeUpdate(updateStr);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public static String getSubject(String id) {
@@ -238,6 +254,13 @@ public class MessageData {
 
     static void setSubject(String id, String subject) {
         // complete this method yourself - similar to setMessage()
+        String updateStr = "UPDATE STUDENT.MESSAGES SET Subject = '" + subject + "' WHERE ID = '" + id + "'";
+        System.out.println(updateStr);
+        try {
+            stmt.executeUpdate(updateStr);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public static String stars(int priority) {
