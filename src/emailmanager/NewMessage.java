@@ -30,14 +30,6 @@ public class NewMessage extends JFrame implements ActionListener {
             }
     }
     
-    private void sendMessage(String Id, String sender, String recipient, String subject, String message) {
-        MessageData.setSender(Id, sender);
-        MessageData.setRecipient(Id, recipient);
-        MessageData.setSubject(Id, subject);
-        MessageData.setMessage(Id, message);
-        MessageData.setPriority(Id, 0);
-    }
-    
     public NewMessage() {
         setLayout(new BorderLayout()); 
         setSize(600, 400); 
