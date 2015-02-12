@@ -120,6 +120,19 @@ public class MessageData {
         return listLabelled(label);
     }    
     
+        static String sendMessage(String to, String sender, String subject, String message, String label, String id) {
+        // SQL UPDATE statement required. For instance if label is "todo" and id is "04" then updateStr is
+        // UPDATE Libary SET Label = 'todo' WHERE id = '04'
+        String updateStr = "INSERT INTO STUDENT.MESSAGES VALUES('" + to + "', '" + sender +  "', '" + subject + "', '" + message + "', '" + label + "', 0, '" + id + "'" + ")";
+        System.out.println(updateStr);
+        try {
+            stmt.executeUpdate(updateStr);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "ok";
+    }   
+    
     static String getMessage(String id) {
         try {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!
