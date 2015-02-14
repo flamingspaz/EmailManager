@@ -60,8 +60,14 @@ public class ReadMessage extends JFrame
     // Our event handler
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == update) { // If the update button was pressed
-            int priorityValue = Integer.parseInt(priority.getText()); // Parse the priority entered by user as an Integer
-            MessageData.setPriority(id, priorityValue); // Set the priority of the message
+            try {
+                int priorityValue = Integer.parseInt(priority.getText()); // Parse the priority entered by user as an Integer
+                MessageData.setPriority(id, priorityValue); // Set the priority of the message
+            }
+            catch (Exception ex) {
+                System.out.println(ex);
+                JOptionPane.showMessageDialog(null, "Please enter a valid number.");
+            }
             displayMessage(); // Redraw the text area to reflect the changes
             EmailManager.refresh(); // redraw main window
         } else if (e.getSource() == close) { // If the close button was pressed

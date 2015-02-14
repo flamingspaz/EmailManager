@@ -5,10 +5,13 @@ package emailmanager;
 // Java GUI classes for this to work, if you complete it correctly.
 // Indeed these classes shouldn't even need to be recompiled
 
+import java.awt.*;
 import java.sql.*;
 import java.util.*;
 import java.io.*;
 import static java.lang.System.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import org.apache.derby.drda.NetworkServerControl;
 
 public class MessageData {
@@ -36,8 +39,8 @@ public class MessageData {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-
+    }    
+    
     public static void reset() {
         String[] defaultMessages =  {
             "'Kate@redwich.ac.uk','Chris@redwich.ac.uk', 'Hello', '> How is the course going?', null, 0, '01'",
@@ -52,7 +55,6 @@ public class MessageData {
                 stmt.executeUpdate(sqlString);
             }
         }
-        
         catch (Exception e) {
             System.out.println(e);
         }
@@ -139,7 +141,7 @@ public class MessageData {
     }    
     
         public static void sendMessage(String to, String sender, String subject, String message, String label, String id) {
-        String updateStr = "INSERT INTO STUDENT.MESSAGES VALUES('" + to + "', '" + sender +  "', '" + subject + "', '" + message + "', '" + label + "', 0, '" + id + "'" + ")";
+        String updateStr = "INSERT INTO STUDENT.MESSAGES VALUES('" + to + "', '" + sender +  "', '" + subject + "', '" + message + "', null, 0, '" + id + "'" + ")";
         System.out.println(updateStr);
         try {
             stmt.executeUpdate(updateStr);

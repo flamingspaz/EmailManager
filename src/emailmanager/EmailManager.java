@@ -67,7 +67,7 @@ public class EmailManager extends JFrame
     
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
-            textArea.setText(MessageData.listAll());
+            refresh();
         } else if (e.getSource() == read) {
             new ReadMessage(idTextField.getText());
         } else if (e.getSource() == newMessage) {
@@ -75,6 +75,7 @@ public class EmailManager extends JFrame
         } else if (e.getSource() == label) {
             new LabelMessages(idTextField.getText());
         } else if (e.getSource() == quit) {
+            //MessageData.reset(); // Take this out
             MessageData.close();
             System.exit(0);
         }
