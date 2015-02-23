@@ -19,10 +19,11 @@ public class LabelMessages extends JFrame implements ActionListener {
     private JTextField msgId = new JTextField(2);
     private JComboBox label = new JComboBox(EmailManager.labels.toArray());
     private Buttons addBtn = new Buttons("", "resource/add.png", false);
-    private JButton closeBtn = new JButton("Close");
+    private Buttons closeBtn = new Buttons(" Close", "resource/cancel.png", false);
     private JTextArea textArea = new JTextArea();
     private JScrollPane scrollPane = new JScrollPane(textArea);
     private String id;
+    ImageIcon infoIcon = new ImageIcon("resource/alert.png");
 
     public LabelMessages(String labelId) {
         id = labelId;
@@ -85,7 +86,7 @@ public class LabelMessages extends JFrame implements ActionListener {
                     EmailManager.refresh(); 
             }
             else {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid Message ID.");
+                    JOptionPane.showMessageDialog(null, "Please enter a valid Message ID.", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
             }
         }
     }

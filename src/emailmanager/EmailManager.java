@@ -35,18 +35,23 @@ public class EmailManager extends JFrame
         // close application only by clicking the quit button
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        JPanel top = new JPanel();
+        JPanel top = new JPanel(new FlowLayout());
         top.add(list);
         list.addActionListener(this);
+        list.setAlignmentX(Component.LEFT_ALIGNMENT);
         top.add(read);
         read.addActionListener(this);
+        read.setAlignmentX(Component.LEFT_ALIGNMENT);
         top.add(idTextField);
         top.add(label);
         label.addActionListener(this);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
         top.add(newMessage);
         newMessage.addActionListener(this);
+        newMessage.setAlignmentX(Component.LEFT_ALIGNMENT);
         top.add(quit);
         quit.addActionListener(this);
+        quit.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         add("North", top);
 

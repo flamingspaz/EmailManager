@@ -12,10 +12,11 @@ public class ReadMessage extends JFrame
     // Define our variables and create our objects
     private String id;
     private JTextField priority = new JTextField(2); // Create a text field object
-    private JButton update = new JButton("Update"); // Create a button object
-    private JButton close = new JButton("Close");
+    private Buttons update = new Buttons(" Update", "resource/save.png", false);
+    private Buttons close = new Buttons(" Close", "resource/cancel.png", false);
     private JTextArea textArea = new JTextArea(); // Create a text area object
     private JScrollPane scrollPane = new JScrollPane(textArea); // Create a scroll pane object
+    ImageIcon infoIcon = new ImageIcon("resource/alert.png");
 
     // Define the constructor
     public ReadMessage(String id) {
@@ -26,7 +27,7 @@ public class ReadMessage extends JFrame
         setSize(500, 250); // Set the window size to 500x250
         setResizable(false); // Make it fixed-sized
         setTitle("Message Details"); // Set the title of the window
-
+        
         // Draw the components
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // We only want to terminate the program when no JFrames are visible
         JPanel top = new JPanel(); // Create a JPanel object
@@ -66,7 +67,7 @@ public class ReadMessage extends JFrame
             }
             catch (Exception ex) {
                 System.out.println(ex);
-                JOptionPane.showMessageDialog(null, "Please enter a valid number.");
+                JOptionPane.showMessageDialog(null, "Please enter a valid number.", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
             }
             displayMessage(); // Redraw the text area to reflect the changes
             EmailManager.refresh(); // redraw main window

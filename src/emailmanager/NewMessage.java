@@ -22,10 +22,11 @@ public class NewMessage extends JFrame implements ActionListener {
     private Buttons discardBtn = new Buttons(" Discard", "resource/cancel.png", false);
     //private JButton discardBtn = new JButton("Discard");
     private JTextArea textArea = new JTextArea(); 
-    private JScrollPane scrollPane = new JScrollPane(textArea); 
+    private JScrollPane scrollPane = new JScrollPane(textArea);
+    ImageIcon realInfoIcon = new ImageIcon("resource/information.png");
     
     private void confirmClose() {
-            int checkIfRlySure = JOptionPane.showConfirmDialog(null, "Are you sure you want to discard your email?","Warning",JOptionPane.YES_NO_OPTION);
+            int checkIfRlySure = JOptionPane.showConfirmDialog(null, "Are you sure you want to discard your email?","Warning",JOptionPane.YES_NO_OPTION, 0, realInfoIcon);
             if (checkIfRlySure == 0) {
                 setVisible(false);
                 dispose();
@@ -84,19 +85,21 @@ public class NewMessage extends JFrame implements ActionListener {
         }
         else if (e.getSource() == sendBtn) {
             if (subjectTxt.getText().toString().isEmpty()) {
-                int noSubConfirm = JOptionPane.showConfirmDialog(null, "This message does not have a subject. Are you sure you want to send it?", "No Subject", JOptionPane.YES_NO_OPTION);
+                int noSubConfirm = JOptionPane.showConfirmDialog(null, "This message does not have a subject. Are you sure you want to send it?", "No Subject", JOptionPane.YES_NO_OPTION, 0, realInfoIcon);
                 if (noSubConfirm == JOptionPane.YES_OPTION) {
                     MessageData.sendMessage(recipient.getText(), "Chris@redwich.ac.uk", subjectTxt.getText(), textArea.getText(), null, msgId.getText());
-                    EmailManager.refresh();
-                    setVisible(false);
-                    dispose();
+                EmailManager.refresh();
+                setVisible(false);
+                dispose();
                 }
             }
+            else {
                 //MessageData.sendMessage(msgId.getText().toString(), "Chris@redwich.ac.uk", subjectTxt.getText().toString(), recipient.getText().toString(), textArea.getText().toString(), 0);
                 MessageData.sendMessage(recipient.getText(), "Chris@redwich.ac.uk", subjectTxt.getText(), textArea.getText(), null, msgId.getText());
                 EmailManager.refresh();
                 setVisible(false);
                 dispose();
+            }
         }
     }
     

@@ -11,7 +11,6 @@ package emailmanager;
  */
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.*;
 
 public class Buttons extends JButton {
@@ -26,6 +25,26 @@ public class Buttons extends JButton {
         super.setContentAreaFilled(false);
         super.setFocusPainted(false);
         super.setOpaque(false);
+        
+        super.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                setBackground(Color.WHITE);
+                setBorderPainted(true);
+                setContentAreaFilled(true);
+                setFocusPainted(true);
+                setOpaque(true);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                setBackground(UIManager.getColor("control"));
+                setBorderPainted(false);
+                setContentAreaFilled(false);
+                setFocusPainted(false);
+                setOpaque(false);
+            }
+        });
     }
 
     public Buttons(String text, String iconRaw, boolean under) {
@@ -65,5 +84,4 @@ public class Buttons extends JButton {
         });
 
     }
-
 }
