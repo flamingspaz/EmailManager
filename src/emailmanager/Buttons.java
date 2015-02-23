@@ -9,48 +9,61 @@ package emailmanager;
  *
  * @author yousef
  */
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.*;
 
 public class Buttons extends JButton {
-    
+
     public Buttons() {
-        
+
     }
-    
+
     public Buttons(String text) {
         super(text);
-        super.setBorderPainted(false); 
-        super.setContentAreaFilled(false); 
-        super.setFocusPainted(false); 
+        super.setBorderPainted(false);
+        super.setContentAreaFilled(false);
+        super.setFocusPainted(false);
         super.setOpaque(false);
     }
-    
+
     public Buttons(String text, String iconRaw, boolean under) {
         super(text);
         ImageIcon refreshIconRaw = new ImageIcon(iconRaw);
         Image img = refreshIconRaw.getImage();
-        Image IconImg = img.getScaledInstance( 18, 18, java.awt.Image.SCALE_SMOOTH);
+        Image IconImg = img.getScaledInstance(18, 18, java.awt.Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(IconImg);
-        
+
         super.setIcon(icon);
-        super.setBorderPainted(false); 
-        super.setContentAreaFilled(false); 
-        super.setFocusPainted(false); 
+        super.setBorderPainted(false);
+        super.setContentAreaFilled(false);
+        super.setFocusPainted(false);
         super.setOpaque(false);
-        
         if (under) {
-        super.setVerticalTextPosition(SwingConstants.BOTTOM);
-        super.setHorizontalTextPosition(SwingConstants.CENTER);
+            super.setVerticalTextPosition(SwingConstants.BOTTOM);
+            super.setHorizontalTextPosition(SwingConstants.CENTER);
         }
+
+        super.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent evt) {
+                setBackground(Color.WHITE);
+                setBorderPainted(true);
+                setContentAreaFilled(true);
+                setFocusPainted(true);
+                setOpaque(true);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                setBackground(UIManager.getColor("control"));
+                setBorderPainted(false);
+                setContentAreaFilled(false);
+                setFocusPainted(false);
+                setOpaque(false);
+            }
+        });
+
     }
-    
+
 }

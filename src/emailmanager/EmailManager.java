@@ -47,6 +47,7 @@ public class EmailManager extends JFrame
         newMessage.addActionListener(this);
         top.add(quit);
         quit.addActionListener(this);
+
         add("North", top);
 
         textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
