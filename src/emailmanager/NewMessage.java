@@ -17,8 +17,10 @@ public class NewMessage extends JFrame implements ActionListener {
     private JTextField msgId = new JTextField(2);
     private JTextField recipient = new JTextField(30);
     private JTextField subjectTxt = new JTextField(30);
-    private JButton sendBtn = new JButton("Send"); 
-    private JButton discardBtn = new JButton("Discard");
+    //private JButton sendBtn = new JButton("Send");
+    private Buttons sendBtn = new Buttons(" Send", "resource/foward.png", false);
+    private Buttons discardBtn = new Buttons(" Discard", "resource/cancel.png", false);
+    //private JButton discardBtn = new JButton("Discard");
     private JTextArea textArea = new JTextArea(); 
     private JScrollPane scrollPane = new JScrollPane(textArea); 
     

@@ -8,12 +8,16 @@ import javax.swing.*;
 
 public class EmailManager extends JFrame
         implements ActionListener {
-    private JButton list = new JButton("List Messages");
-    private JButton read = new JButton("Read Message");
+    private Buttons list = new Buttons("Refresh", "resource/refresh.png", true);
+    private Buttons quit = new Buttons("Quit", "resource/close.png", true);
+    private Buttons read = new Buttons("Read", "resource/open-message.png", true);
+    private Buttons newMessage = new Buttons("New", "resource/edit.png", true);
+    private Buttons label = new Buttons("Add Label", "resource/event.png", true);
+    // load icons
+    
+    
+    
     private JTextField idTextField = new JTextField(2);
-    private JButton label = new JButton("Label Messages");
-    private JButton newMessage = new JButton("New Message");
-    private JButton quit = new JButton("Exit");
     private static JTextArea textArea = new JTextArea(); // change this back to private
     private JScrollPane scrollPane = new JScrollPane(textArea);
     private static String[] defaultLabels = {"", "Work", "Important", "Todo"};
@@ -51,7 +55,7 @@ public class EmailManager extends JFrame
         textArea.setPreferredSize(new Dimension(560, 200));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(560, 200));
-
+        
         JPanel middle = new JPanel();
         middle.add(scrollPane);
         add("Center", middle);

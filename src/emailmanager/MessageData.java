@@ -36,6 +36,7 @@ public class MessageData {
             out.println(cnfe);
         } catch (SQLException sqle) {
             out.println(sqle);
+            JOptionPane.showMessageDialog(null, "An database error has occurred:\n" + sqle);
         } catch (Exception e) {
             System.out.println(e);
         }
