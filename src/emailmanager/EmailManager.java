@@ -5,22 +5,23 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class EmailManager extends JFrame
         implements ActionListener {
-    private Buttons list = new Buttons("Refresh", "resource/refresh.png", true);
-    private Buttons quit = new Buttons("Quit", "resource/close.png", true);
-    private Buttons read = new Buttons("Read", "resource/open-message.png", true);
-    private Buttons newMessage = new Buttons("New", "resource/edit.png", true);
-    private Buttons label = new Buttons("Add Label", "resource/event.png", true);
+    private final Buttons list = new Buttons("Refresh", "resource/refresh.png", true);
+    private final Buttons quit = new Buttons("Quit", "resource/close.png", true);
+    private final Buttons newMessage = new Buttons("New", "resource/edit.png", true);
+    private final Buttons label = new Buttons("Add Label", "resource/event.png", true);
     // load icons
     private ResultSetTable rst = MessageData.listAllRS();
-    private JTextField idTextField = new JTextField(2);
-    private static JTextArea textArea = new JTextArea(); // change this back to private
-    private JScrollPane scrollPane = new JScrollPane(rst);
-    private static String[] defaultLabels = {"", "Work", "Important", "Todo"};
+    private final JScrollPane scrollPane = new JScrollPane(rst);
+    
+    private static final String[] defaultLabels = {"", "Work", "Important", "Todo"};
     public static ArrayList<String> labels = new ArrayList<String>(Arrays.asList(defaultLabels));
+    ReadMessage1 readMessagePanel = new ReadMessage1("");
     public static void main(String[] args) {
         new EmailManager();
     }
@@ -28,20 +29,21 @@ public class EmailManager extends JFrame
     
     public EmailManager() {
         setLayout(new BorderLayout());
-        setSize(600, 300);
+        setSize(1200, 600);
         setResizable(false);
         setTitle("Email Manager");
         // close application only by clicking the quit button
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        
+        rst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        rst.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                readMessagePanel.displayMessage(rst.getValueAt(rst.getSelectedRow(), 6).toString());
+            }
+        });
         JPanel top = new JPanel(new FlowLayout());
         top.add(list);
         list.addActionListener(this);
         list.setAlignmentX(Component.LEFT_ALIGNMENT);
-        top.add(read);
-        read.addActionListener(this);
-        read.setAlignmentX(Component.LEFT_ALIGNMENT);
-        top.add(idTextField);
         top.add(label);
         label.addActionListener(this);
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -55,28 +57,28 @@ public class EmailManager extends JFrame
         add("North", top);        
    
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(560, 200));
+        scrollPane.setPreferredSize(new Dimension(650, 490));
         
-        JPanel middle = new JPanel();
-        middle.add(scrollPane);
-        add("Center", middle);
-
+        JPanel west = new JPanel();
+        west.add(scrollPane);
+        add("West", west);
+        JPanel east = new JPanel();
+        east.add(readMessagePanel);
+        add("East", east);
         setVisible(true);
     }
 
     public static void refresh() {
-        textArea.setText(MessageData.listAll());
+        // need to do this
     }
     
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
             refresh();
-        } else if (e.getSource() == read) {
-            new ReadMessage(idTextField.getText());
         } else if (e.getSource() == newMessage) {
             new NewMessage();
         } else if (e.getSource() == label) {
-            new LabelMessages(idTextField.getText());
+            new LabelMessages(rst.getValueAt(rst.getSelectedRow(), 6).toString());
         } else if (e.getSource() == quit) {
             //MessageData.reset(); // Take this out
             MessageData.close();
