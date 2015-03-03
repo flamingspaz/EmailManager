@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class EmailManager extends JFrame
         implements ActionListener {
@@ -14,12 +15,10 @@ public class EmailManager extends JFrame
     private Buttons newMessage = new Buttons("New", "resource/edit.png", true);
     private Buttons label = new Buttons("Add Label", "resource/event.png", true);
     // load icons
-    
-    
-    
+    private ResultSetTable rst = MessageData.listAllRS();
     private JTextField idTextField = new JTextField(2);
     private static JTextArea textArea = new JTextArea(); // change this back to private
-    private JScrollPane scrollPane = new JScrollPane(textArea);
+    private JScrollPane scrollPane = new JScrollPane(rst);
     private static String[] defaultLabels = {"", "Work", "Important", "Todo"};
     public static ArrayList<String> labels = new ArrayList<String>(Arrays.asList(defaultLabels));
     public static void main(String[] args) {
@@ -34,7 +33,7 @@ public class EmailManager extends JFrame
         setTitle("Email Manager");
         // close application only by clicking the quit button
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-
+        
         JPanel top = new JPanel(new FlowLayout());
         top.add(list);
         list.addActionListener(this);
@@ -52,21 +51,15 @@ public class EmailManager extends JFrame
         top.add(quit);
         quit.addActionListener(this);
         quit.setAlignmentX(Component.RIGHT_ALIGNMENT);
-
-        add("North", top);
-
-        textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setPreferredSize(new Dimension(560, 200));
+        
+        add("North", top);        
+   
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(560, 200));
         
         JPanel middle = new JPanel();
         middle.add(scrollPane);
         add("Center", middle);
-
-        textArea.setText(MessageData.listAll());
 
         setVisible(true);
     }

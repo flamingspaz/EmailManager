@@ -311,4 +311,16 @@ public class MessageData {
             System.out.println(e);
         }
     }
+    
+    public static ResultSetTable listAllRS() {
+        try {
+            ResultSet rset = stmt.executeQuery("SELECT * from STUDENT.MESSAGES");
+            ResultSetTable rst = new ResultSetTable(rset);
+            return rst;
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }
