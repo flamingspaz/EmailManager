@@ -21,7 +21,7 @@ public class EmailManager extends JFrame
     
     private static final String[] defaultLabels = {"", "Work", "Important", "Todo"};
     public static ArrayList<String> labels = new ArrayList<String>(Arrays.asList(defaultLabels));
-    ReadMessage1 readMessagePanel = new ReadMessage1("");
+    ReadMessage readMessagePanel = new ReadMessage("");
     public static void main(String[] args) {
         new EmailManager();
     }

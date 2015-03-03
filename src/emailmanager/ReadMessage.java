@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ReadMessage extends JFrame
+public class ReadMessage extends JPanel
         implements ActionListener {
 
     
@@ -13,7 +13,6 @@ public class ReadMessage extends JFrame
     private String id;
     private JTextField priority = new JTextField(2); // Create a text field object
     private Buttons update = new Buttons(" Update", "resource/save.png", false);
-    private Buttons close = new Buttons(" Close", "resource/cancel.png", false);
     private JTextArea textArea = new JTextArea(); // Create a text area object
     private JScrollPane scrollPane = new JScrollPane(textArea); // Create a scroll pane object
     ImageIcon infoIcon = new ImageIcon("resource/alert.png");
@@ -24,20 +23,15 @@ public class ReadMessage extends JFrame
 
         // Set up the layout
         setLayout(new BorderLayout()); // Use a border layout
-        setSize(500, 250); // Set the window size to 500x250
-        setResizable(false); // Make it fixed-sized
-        setTitle("Message Details"); // Set the title of the window
+        setSize(1200, 250); // Set the window size to 500x250
         
         // Draw the components
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // We only want to terminate the program when no JFrames are visible
         JPanel top = new JPanel(); // Create a JPanel object
         // Add some components to the JPanel
         top.add(new JLabel("Enter Priority (1-5):"));
         top.add(priority);
         top.add(update);
         update.addActionListener(this); // Add an action listener to the button with the object that called it as an argument
-        top.add(close);
-        close.addActionListener(this); // Add another action listener to the button
         add("North", top); // Draw the JPanel at the top (North borderlayout)
 
         // TEXT!
@@ -45,15 +39,15 @@ public class ReadMessage extends JFrame
         textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12)); // Set the text for our text area to a not so stylish monospace font.
         textArea.setLineWrap(true); // Enable automatic line wrapping
         textArea.setWrapStyleWord(true); // Wrap around words instead of chars.
-        textArea.setPreferredSize(new Dimension(450, 150)); // Set the text area size to 450x150
+        textArea.setPreferredSize(new Dimension(500, 400)); // Set the text area size to 450x150
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); // Always show the vertical scrollbar
-        scrollPane.setPreferredSize(new Dimension(450, 150)); // Set the scroll pane to 450x150
+        scrollPane.setPreferredSize(new Dimension(500, 400)); // Set the scroll pane to 450x150
 
         JPanel middle = new JPanel(); // Create a JPanel object
         middle.add(scrollPane); // add the scroll pane to our middle JPanel
         add("Center", middle); // Draw the middle JPane in the center
 
-        displayMessage(); // Call displayMessage once to populate the text area
+        displayMessage(id); // Call displayMessage once to populate the text area
         
         setVisible(true); // LET THERE BE EMAIL (make everything visible)
     }
@@ -69,15 +63,13 @@ public class ReadMessage extends JFrame
                 System.out.println(ex);
                 JOptionPane.showMessageDialog(null, "Please enter a valid number.", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
             }
-            displayMessage(); // Redraw the text area to reflect the changes
+            displayMessage(id); // Redraw the text area to reflect the changes
             EmailManager.refresh(); // redraw main window
-        } else if (e.getSource() == close) { // If the close button was pressed
-            dispose(); // Close the JFrame
         }
     }
 
     // Our displayMessage method
-    private void displayMessage() {
+    public void displayMessage(String id) {
         String subject = MessageData.getSubject(id); // Put the subject of a message with given ID into a var
         if (subject == null) { // if that message doesn't actually exist
             textArea.setText("No such message"); // Tell the user they're doing it wrong

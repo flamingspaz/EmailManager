@@ -45,7 +45,7 @@ public class MessageData {
     public static void reset() {
         String[] defaultMessages =  {
             "'Kate@redwich.ac.uk','Chris@redwich.ac.uk', 'Hello', '> How is the course going?', null, 0, '01'",
-            "'Chris@redwich.ac.uk', 'Kate@redwich.ac.uk', 'Re: Hello', '> How is the course going?\\n\\nBrilliant, thanks. The students are all fantastic and are going to get top marks in their coursework.', null, 0, '02'"
+            "'Chris@redwich.ac.uk', 'Kate@redwich.ac.uk', 'Re: Hello', '> How is the course going?\n\nBrilliant, thanks. The students are all fantastic and are going to get top marks in their coursework.', null, 0, '02'"
         };
         try {
             stmt.executeUpdate("TRUNCATE TABLE STUDENT.MESSAGES");
