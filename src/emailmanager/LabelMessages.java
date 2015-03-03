@@ -57,7 +57,6 @@ public class LabelMessages extends JFrame implements ActionListener {
         add("Center", middle);
         closeBtn.addActionListener(this);
         addBtn.addActionListener(this);
-        textArea.setText(MessageData.listAll());
 
         setVisible(true);
     }

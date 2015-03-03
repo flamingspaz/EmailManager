@@ -82,21 +82,6 @@ public class MessageData {
         return output;
     }
 
-    public static String listAll() {
-        String output = listHeader();
-        try {
-            ResultSet res = stmt.executeQuery("SELECT * from STUDENT.MESSAGES");
-            while (res.next()) { // there is a result
-                output += formatListEntry(res);
-
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
-        return output;
-    }
-
     static String listLabelled(String label) {
         String output = listHeader();
         try {
