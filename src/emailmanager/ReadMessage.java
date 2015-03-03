@@ -61,7 +61,7 @@ public class ReadMessage extends JPanel
                 System.out.println(ex);
                 JOptionPane.showMessageDialog(null, "Please enter a valid number.", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
             }
-            displayMessage(id); // Redraw the text area to reflect the changes
+            displayMessage(prid); // Redraw the text area to reflect the changes
             EmailManager.refresh(); // redraw main window
         }
     }

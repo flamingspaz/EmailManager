@@ -14,6 +14,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
  
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
  
 /**
@@ -31,7 +33,7 @@ public class ResultSetTable extends JTable{
     super();
     dataModel = new DefaultTableModel();
     setModel(dataModel);
- 
+            
     try {
       //create an array of column names
       ResultSetMetaData mdata = rs.getMetaData();
@@ -58,5 +60,10 @@ public class ResultSetTable extends JTable{
       catch (SQLException ignore) {
       }
     }
+        getColumnModel().getColumn(0).setMaxWidth(30);
+    getColumnModel().getColumn(0).setMinWidth(20);
+    getColumnModel().getColumn(6).setMaxWidth(70);
+    getColumnModel().getColumn(6).setMinWidth(70);
+    removeColumn(getColumnModel().getColumn(4));
   }
 }

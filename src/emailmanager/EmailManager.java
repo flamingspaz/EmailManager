@@ -16,9 +16,9 @@ public class EmailManager extends JFrame
     private final Buttons newMessage = new Buttons("New", "resource/edit.png", true);
     private final Buttons label = new Buttons("Add Label", "resource/event.png", true);
     // load icons
-    private ResultSetTable rst = MessageData.listAllRS();
+    private static ResultSetTable rst = MessageData.listAllRS();
 
-    private final JScrollPane scrollPane = new JScrollPane(rst);
+    private static final JScrollPane scrollPane = new JScrollPane(rst);
     
     private static final String[] defaultLabels = {"", "Work", "Important", "Todo"};
     public static ArrayList<String> labels = new ArrayList<String>(Arrays.asList(defaultLabels));
@@ -37,11 +37,6 @@ public class EmailManager extends JFrame
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         rst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         // some jtable housekeeping, to make it look nice.
-        rst.getColumnModel().getColumn(0).setMaxWidth(30);
-        rst.getColumnModel().getColumn(0).setMinWidth(20);
-        rst.getColumnModel().getColumn(6).setMaxWidth(70);
-        rst.getColumnModel().getColumn(6).setMinWidth(70);
-        rst.removeColumn(rst.getColumnModel().getColumn(4));
         rst.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
                 readMessagePanel.displayMessage(rst.getValueAt(rst.getSelectedRow(), 0).toString());
@@ -77,6 +72,8 @@ public class EmailManager extends JFrame
 
     public static void refresh() {
         // need to do this
+        scrollPane.getViewport().remove(rst);
+        scrollPane.getViewport().add(MessageData.listAllRS());
     }
     
     public void actionPerformed(ActionEvent e) {
