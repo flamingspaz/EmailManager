@@ -14,7 +14,6 @@ import javax.swing.*;
  */
 public class NewMessage extends JFrame implements ActionListener {
     
-    private JTextField msgId = new JTextField(2);
     private JTextField recipient = new JTextField(30);
     private JTextField subjectTxt = new JTextField(30);
     //private JButton sendBtn = new JButton("Send");
@@ -41,9 +40,7 @@ public class NewMessage extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         // Layout the top
-        JPanel top = new JPanel(new GridLayout(3, 0));
-        top.add(new JLabel("Message ID: ", SwingConstants.RIGHT));
-        top.add(msgId);
+        JPanel top = new JPanel(new GridLayout(2, 0));
         top.add(new JLabel("To: ", SwingConstants.RIGHT));
         top.add(recipient);
         top.add(new JLabel("Subject: ", SwingConstants.RIGHT));
@@ -87,7 +84,7 @@ public class NewMessage extends JFrame implements ActionListener {
             if (subjectTxt.getText().toString().isEmpty()) {
                 int noSubConfirm = JOptionPane.showConfirmDialog(null, "This message does not have a subject. Are you sure you want to send it?", "No Subject", JOptionPane.YES_NO_OPTION, 0, realInfoIcon);
                 if (noSubConfirm == JOptionPane.YES_OPTION) {
-                    MessageData.sendMessage(recipient.getText(), "Chris@redwich.ac.uk", subjectTxt.getText(), textArea.getText(), null, msgId.getText());
+                    MessageData.sendMessage(recipient.getText(), "Chris@redwich.ac.uk", subjectTxt.getText(), textArea.getText());
                 EmailManager.refresh();
                 setVisible(false);
                 dispose();
@@ -95,7 +92,7 @@ public class NewMessage extends JFrame implements ActionListener {
             }
             else {
                 //MessageData.sendMessage(msgId.getText().toString(), "Chris@redwich.ac.uk", subjectTxt.getText().toString(), recipient.getText().toString(), textArea.getText().toString(), 0);
-                MessageData.sendMessage(recipient.getText(), "Chris@redwich.ac.uk", subjectTxt.getText(), textArea.getText(), null, msgId.getText());
+                MessageData.sendMessage(recipient.getText(), "Chris@redwich.ac.uk", subjectTxt.getText(), textArea.getText());
                 EmailManager.refresh();
                 setVisible(false);
                 dispose();

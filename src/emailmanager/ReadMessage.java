@@ -16,11 +16,9 @@ public class ReadMessage extends JPanel
     private JTextArea textArea = new JTextArea(); // Create a text area object
     private JScrollPane scrollPane = new JScrollPane(textArea); // Create a scroll pane object
     ImageIcon infoIcon = new ImageIcon("resource/alert.png");
-
+    private String prid;
     // Define the constructor
     public ReadMessage(String id) {
-        this.id = id; // grab the id of the email from the selected object
-
         // Set up the layout
         setLayout(new BorderLayout()); // Use a border layout
         setSize(1200, 250); // Set the window size to 500x250
@@ -57,7 +55,7 @@ public class ReadMessage extends JPanel
         if (e.getSource() == update) { // If the update button was pressed
             try {
                 int priorityValue = Integer.parseInt(priority.getText()); // Parse the priority entered by user as an Integer
-                MessageData.setPriority(id, priorityValue); // Set the priority of the message
+                MessageData.setPriority(prid, priorityValue); // Set the priority of the message
             }
             catch (Exception ex) {
                 System.out.println(ex);
@@ -70,13 +68,14 @@ public class ReadMessage extends JPanel
 
     // Our displayMessage method
     public void displayMessage(String id) {
+        prid = id;
         String subject = MessageData.getSubject(id); // Put the subject of a message with given ID into a var
         if (subject == null) { // if that message doesn't actually exist
             textArea.setText("No such message"); // Tell the user they're doing it wrong
         } else {
             // Populate the text area with the message details
             textArea.setText("Subject: " + subject); // Show the subject in the text area
-            textArea.setText("From: " + MessageData.getSender(id)); // for some reason, immediately replace the subject with the message sender
+            textArea.append("\nFrom: " + MessageData.getSender(id)); // for some reason, immediately replace the subject with the message sender
             // These append as opposed to replace so we can see them all
             textArea.append("\nTo: " + MessageData.getRecipient(id)); // Append who the message was to, in case you forgot your name
             textArea.append("\nPriority: " + MessageData.stars(MessageData.getPriority(id))); // Append the priority of the message

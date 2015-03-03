@@ -44,14 +44,14 @@ public class MessageData {
     
     public static void reset() {
         String[] defaultMessages =  {
-            "'Kate@redwich.ac.uk','Chris@redwich.ac.uk', 'Hello', '> How is the course going?', null, 0, '01'",
-            "'Chris@redwich.ac.uk', 'Kate@redwich.ac.uk', 'Re: Hello', '> How is the course going?\n\nBrilliant, thanks. The students are all fantastic and are going to get top marks in their coursework.', null, 0, '02'"
+            "'Kate@redwich.ac.uk','Chris@redwich.ac.uk', 'Hello', '> How is the course going?', '', 0",
+            "'Chris@redwich.ac.uk', 'Kate@redwich.ac.uk', 'Re: Hello', '> How is the course going?\n\nBrilliant, thanks. The students are all fantastic and are going to get top marks in their coursework.', '', 0"
         };
         try {
             stmt.executeUpdate("TRUNCATE TABLE STUDENT.MESSAGES");
             System.out.println("Reset table, adding default values");
             for (int i = 0; i < defaultMessages.length; i++) {
-                String sqlString = "INSERT INTO STUDENT.MESSAGES VALUES(" + defaultMessages[i] + ")";
+                String sqlString = "INSERT INTO STUDENT.MESSAGES(TOO, SENDER, SUBJECT, MESSAGE, LABEL, PRIORITY) VALUES(" + defaultMessages[i] + ")";
                 System.out.println(sqlString);
                 stmt.executeUpdate(sqlString);
             }
@@ -131,7 +131,7 @@ public class MessageData {
     static String setLabel(String id, String label) {
         // SQL UPDATE statement required. For instance if label is "todo" and id is "04" then updateStr is
         // UPDATE Libary SET Label = 'todo' WHERE id = '04'
-        String updateStr = "UPDATE STUDENT.MESSAGES SET Label = '" + label + "' WHERE ID = '" + id + "'";
+        String updateStr = "UPDATE STUDENT.MESSAGES SET Label = '" + label + "' WHERE ID = " + id + "";
         System.out.println(updateStr);
         try {
             stmt.executeUpdate(updateStr);
@@ -141,8 +141,8 @@ public class MessageData {
         return listLabelled(label);
     }    
     
-        public static void sendMessage(String to, String sender, String subject, String message, String label, String id) {
-        String updateStr = "INSERT INTO STUDENT.MESSAGES VALUES('" + to + "', '" + sender +  "', '" + subject + "', '" + message + "', null, 0, '" + id + "'" + ")";
+        public static void sendMessage(String to, String sender, String subject, String message) {
+        String updateStr = "INSERT INTO STUDENT.MESSAGES(TOO, SENDER, SUBJECT, MESSAGE, LABEL, PRIORITY) VALUES('" + to + "', '" + sender +  "', '" + subject + "', '" + message + "', '', 0" + ")";
         System.out.println(updateStr);
         try {
             stmt.executeUpdate(updateStr);
@@ -156,7 +156,7 @@ public class MessageData {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!
             // For instance if id was "04" the SELECT statement would be:
             // SELECT * FROM MessageTable WHERE id = '04'
-            ResultSet res = stmt.executeQuery("SELECT * from STUDENT.MESSAGES WHERE ID = '" + id + "'");
+            ResultSet res = stmt.executeQuery("SELECT * from STUDENT.MESSAGES WHERE ID = " + id + "");
             if (res.next()) { // there is a result
                 return res.getString("Message");
             } else {
@@ -171,7 +171,7 @@ public class MessageData {
     static void setMessage(String id, String message) {
         // SQL UPDATE statement required. For instance if message is "Hello, how are you?" and id is "04" then updateStr is
         // UPDATE Libary SET Message = 'Hello, how are you?' WHERE id = '04'
-        String updateStr = "UPDATE STUDENT.MESSAGES SET Message = '" + message + "' WHERE ID = '" + id + "'";
+        String updateStr = "UPDATE STUDENT.MESSAGES SET Message = '" + message + "' WHERE ID = " + id + "";
         System.out.println(updateStr);
         try {
             stmt.executeUpdate(updateStr);
@@ -185,9 +185,9 @@ public class MessageData {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!
             // For instance if id was "04" the SELECT statement would be:
             // SELECT * FROM MessageTable WHERE id = '04'
-            ResultSet res = stmt.executeQuery("SELECT * from STUDENT.MESSAGES WHERE ID = '" + id + "'");
+            ResultSet res = stmt.executeQuery("SELECT * from STUDENT.MESSAGES WHERE ID = " + id + "");
             if (res.next()) { // there is a result
-                return res.getInt("Priority");
+                return res.getInt("PRIORITY");
             } else {
                 return -1;
             }
@@ -200,7 +200,7 @@ public class MessageData {
     public static void setPriority(String id, int priority) {
         // SQL UPDATE statement required. For instance if priority is 5 and id is "04" then updateStr is
         // UPDATE Libary SET Priority = 5 WHERE id = '04'
-        String updateStr = "UPDATE STUDENT.MESSAGES SET Priority = " + priority + " WHERE ID = '" + id + "'";
+        String updateStr = "UPDATE STUDENT.MESSAGES SET Priority = " + priority + " WHERE ID = " + id + "";
         System.out.println(updateStr);
         try {
             stmt.executeUpdate(updateStr);
@@ -214,7 +214,7 @@ public class MessageData {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!
             // For instance if id was "04" the SELECT statement would be:
             // SELECT * FROM MessageTable WHERE id = '04'
-            ResultSet res = stmt.executeQuery("SELECT * FROM STUDENT.MESSAGES WHERE ID = '" + id + "'");
+            ResultSet res = stmt.executeQuery("SELECT * FROM STUDENT.MESSAGES WHERE ID = " + id + "");
             if (res.next()) { // there is a result
 			//To is a reserved word in Derby SQL, Too has been used instead
                 return res.getString("Too");
@@ -243,7 +243,7 @@ public class MessageData {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!
             // For instance if id was "04" the SELECT statement would be:
             // SELECT * FROM MessageTable WHERE id = '04'
-            ResultSet res = stmt.executeQuery("SELECT * FROM STUDENT.MESSAGES WHERE ID = '" + id + "'");
+            ResultSet res = stmt.executeQuery("SELECT * FROM STUDENT.MESSAGES WHERE ID = " + id + "");
             if (res.next()) { // there is a result
                 return res.getString("Sender");
             } else {
@@ -271,7 +271,7 @@ public class MessageData {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!
             // For instance if id was "04" the SELECT statement would be:
             // SELECT * FROM MessageTable WHERE id = '04'
-            ResultSet res = stmt.executeQuery("SELECT * FROM STUDENT.MESSAGES WHERE ID = '" + id + "'");
+            ResultSet res = stmt.executeQuery("SELECT * FROM STUDENT.MESSAGES WHERE ID = " + id + "");
             if (res.next()) { // there is a result
                 return res.getString("Subject");
             } else {

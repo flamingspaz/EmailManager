@@ -17,6 +17,7 @@ public class EmailManager extends JFrame
     private final Buttons label = new Buttons("Add Label", "resource/event.png", true);
     // load icons
     private ResultSetTable rst = MessageData.listAllRS();
+
     private final JScrollPane scrollPane = new JScrollPane(rst);
     
     private static final String[] defaultLabels = {"", "Work", "Important", "Todo"};
@@ -35,9 +36,15 @@ public class EmailManager extends JFrame
         // close application only by clicking the quit button
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         rst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        // some jtable housekeeping, to make it look nice.
+        rst.getColumnModel().getColumn(0).setMaxWidth(30);
+        rst.getColumnModel().getColumn(0).setMinWidth(20);
+        rst.getColumnModel().getColumn(6).setMaxWidth(70);
+        rst.getColumnModel().getColumn(6).setMinWidth(70);
+        rst.removeColumn(rst.getColumnModel().getColumn(4));
         rst.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                readMessagePanel.displayMessage(rst.getValueAt(rst.getSelectedRow(), 6).toString());
+                readMessagePanel.displayMessage(rst.getValueAt(rst.getSelectedRow(), 0).toString());
             }
         });
         JPanel top = new JPanel(new FlowLayout());
@@ -78,7 +85,7 @@ public class EmailManager extends JFrame
         } else if (e.getSource() == newMessage) {
             new NewMessage();
         } else if (e.getSource() == label) {
-            new LabelMessages(rst.getValueAt(rst.getSelectedRow(), 6).toString());
+            new LabelMessages(rst.getValueAt(rst.getSelectedRow(), 0).toString());
         } else if (e.getSource() == quit) {
             //MessageData.reset(); // Take this out
             MessageData.close();
