@@ -33,7 +33,7 @@ public class LabelMessages extends JFrame implements ActionListener {
         setResizable(false);
         setTitle("Label Messages");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        setIconImage(EmailManager.logoIcon.getImage());
         JPanel top = new JPanel(new FlowLayout());
         top.add(new JLabel("Message ID: ", SwingConstants.RIGHT));
         top.add(msgId);

@@ -23,6 +23,7 @@ public class EmailManager extends JFrame
     private static final String[] defaultLabels = {"", "Work", "Important", "Todo"};
     public static ArrayList<String> labels = new ArrayList<String>(Arrays.asList(defaultLabels));
     static ReadMessage readMessagePanel = new ReadMessage("");
+    public static ImageIcon logoIcon = new ImageIcon("resource/logo.png");
     public static void main(String[] args) {
         new EmailManager();
     }
@@ -33,6 +34,7 @@ public class EmailManager extends JFrame
         setSize(1200, 600);
         setResizable(false);
         setTitle("Email Manager");
+        setIconImage(logoIcon.getImage());
         // close application only by clicking the quit button
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         JPanel top = new JPanel(new FlowLayout());
@@ -52,7 +54,8 @@ public class EmailManager extends JFrame
         add("North", top);        
    
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(650, 490));
+        scrollPane.setPreferredSize(new Dimension(670, 500));
+        scrollPane.getViewport().setBackground(Color.WHITE);
         
         JPanel west = new JPanel();
         west.add(scrollPane);

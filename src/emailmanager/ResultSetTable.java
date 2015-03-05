@@ -66,5 +66,6 @@ public class ResultSetTable extends JTable{
     getColumnModel().getColumn(6).setMaxWidth(70);
     getColumnModel().getColumn(6).setMinWidth(70);
     removeColumn(getColumnModel().getColumn(4));
+    setShowGrid(false);
   }
 }

@@ -38,7 +38,7 @@ public class NewMessage extends JFrame implements ActionListener {
         setResizable(false); 
         setTitle("New Message"); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+        setIconImage(EmailManager.logoIcon.getImage());
         // Layout the top
         JPanel top = new JPanel(new GridLayout(2, 0));
         top.add(new JLabel("To: ", SwingConstants.RIGHT));
