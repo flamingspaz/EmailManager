@@ -5,13 +5,10 @@ package emailmanager;
 // Java GUI classes for this to work, if you complete it correctly.
 // Indeed these classes shouldn't even need to be recompiled
 
-import java.awt.*;
 import java.sql.*;
-import java.util.*;
 import java.io.*;
 import static java.lang.System.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import org.apache.derby.drda.NetworkServerControl;
 
 public class MessageData {
@@ -165,6 +162,18 @@ public class MessageData {
         }
     }
 
+    static void deleteMessage(String id) {
+        // SQL UPDATE statement required. For instance if message is "Hello, how are you?" and id is "04" then updateStr is
+        // UPDATE Libary SET Message = 'Hello, how are you?' WHERE id = '04'
+        String updateStr = "DELETE FROM STUDENT.MESSAGES WHERE ID = " + id + "";
+        System.out.println(updateStr);
+        try {
+            stmt.executeUpdate(updateStr);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
     public static int getPriority(String id) {
         try {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!

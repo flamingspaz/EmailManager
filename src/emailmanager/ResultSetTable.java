@@ -60,7 +60,8 @@ public class ResultSetTable extends JTable{
       catch (SQLException ignore) {
       }
     }
-        getColumnModel().getColumn(0).setMaxWidth(30);
+    // make it pretty for viewing
+    getColumnModel().getColumn(0).setMaxWidth(30);
     getColumnModel().getColumn(0).setMinWidth(20);
     getColumnModel().getColumn(6).setMaxWidth(70);
     getColumnModel().getColumn(6).setMinWidth(70);

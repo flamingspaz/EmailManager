@@ -13,6 +13,7 @@ public class ReadMessage extends JPanel
     private String id;
     private JTextField priority = new JTextField(2); // Create a text field object
     private Buttons update = new Buttons(" Update", "resource/save.png", false);
+    private Buttons delete = new Buttons(" Delete", "resource/delete.png", false);
     private JTextArea textArea = new JTextArea(); // Create a text area object
     private JScrollPane scrollPane = new JScrollPane(textArea); // Create a scroll pane object
     ImageIcon infoIcon = new ImageIcon("resource/alert.png");
@@ -29,7 +30,9 @@ public class ReadMessage extends JPanel
         top.add(new JLabel("Enter Priority (1-5):"));
         top.add(priority);
         top.add(update);
+        top.add(delete);
         update.addActionListener(this); // Add an action listener to the button with the object that called it as an argument
+        delete.addActionListener(this);
         add("North", top); // Draw the JPanel at the top (North borderlayout)
 
         // TEXT!
@@ -63,6 +66,11 @@ public class ReadMessage extends JPanel
             }
             displayMessage(prid); // Redraw the text area to reflect the changes
             EmailManager.refresh(); // redraw main window
+        }
+        else if (e.getSource() == delete) {
+            MessageData.deleteMessage(prid);
+            EmailManager.refresh();
+            displayMessage(Integer.toString(Integer.parseInt(prid) - 1)); // if possible, show the last message
         }
     }
 

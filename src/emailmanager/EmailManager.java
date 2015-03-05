@@ -22,7 +22,7 @@ public class EmailManager extends JFrame
     
     private static final String[] defaultLabels = {"", "Work", "Important", "Todo"};
     public static ArrayList<String> labels = new ArrayList<String>(Arrays.asList(defaultLabels));
-    ReadMessage readMessagePanel = new ReadMessage("");
+    static ReadMessage readMessagePanel = new ReadMessage("");
     public static void main(String[] args) {
         new EmailManager();
     }
@@ -35,13 +35,6 @@ public class EmailManager extends JFrame
         setTitle("Email Manager");
         // close application only by clicking the quit button
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        rst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        // some jtable housekeeping, to make it look nice.
-        rst.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                readMessagePanel.displayMessage(rst.getValueAt(rst.getSelectedRow(), 0).toString());
-            }
-        });
         JPanel top = new JPanel(new FlowLayout());
         top.add(list);
         list.addActionListener(this);
@@ -67,13 +60,21 @@ public class EmailManager extends JFrame
         JPanel east = new JPanel();
         east.add(readMessagePanel);
         add("East", east);
+        refresh();
         setVisible(true);
     }
 
     public static void refresh() {
         // need to do this
         scrollPane.getViewport().remove(rst);
-        scrollPane.getViewport().add(MessageData.listAllRS());
+        rst = MessageData.listAllRS();
+                rst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        scrollPane.getViewport().add(rst);
+        rst.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                readMessagePanel.displayMessage(rst.getValueAt(rst.getSelectedRow(), 0).toString());
+            }
+        });
     }
     
     public void actionPerformed(ActionEvent e) {

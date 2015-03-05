@@ -5,10 +5,10 @@
         <group>
             <file>file:/home/yousef/projects/EmailManager/src/emailmanager/ReadMessage.java</file>
             <file>file:/home/yousef/projects/EmailManager/src/emailmanager/NewMessage.java</file>
-            <file>file:/home/yousef/projects/EmailManager/src/emailmanager/MessageData.java</file>
             <file>file:/home/yousef/projects/EmailManager/src/emailmanager/LabelMessages.java</file>
-            <file>file:/home/yousef/projects/EmailManager/src/emailmanager/ReadMessage1.java</file>
+            <file>file:/home/yousef/projects/EmailManager/src/emailmanager/MessageData.java</file>
             <file>file:/home/yousef/projects/EmailManager/src/emailmanager/EmailManager.java</file>
+            <file>file:/home/yousef/projects/EmailManager/src/emailmanager/ResultSetTable.java</file>
         </group>
     </open-files>
 </project-private>
