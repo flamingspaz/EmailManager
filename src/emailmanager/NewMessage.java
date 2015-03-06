@@ -17,8 +17,8 @@ public class NewMessage extends JFrame implements ActionListener {
     private JTextField recipient = new JTextField(30);
     private JTextField subjectTxt = new JTextField(30);
     //private JButton sendBtn = new JButton("Send");
-    private Buttons sendBtn = new Buttons(" Send", "resource/foward.png", false);
-    private Buttons discardBtn = new Buttons(" Discard", "resource/cancel.png", false);
+    private Buttons sendBtn = new Buttons(" Send", "resource/foward.png", false, "Send Message");
+    private Buttons discardBtn = new Buttons(" Discard", "resource/cancel.png", false, "Discard Message");
     //private JButton discardBtn = new JButton("Discard");
     private JTextArea textArea = new JTextArea(); 
     private JScrollPane scrollPane = new JScrollPane(textArea);

@@ -47,7 +47,7 @@ public class Buttons extends JButton {
         });
     }
 
-    public Buttons(String text, String iconRaw, boolean under) {
+    public Buttons(String text, String iconRaw, boolean under, String alt) {
         super(text);
         ImageIcon refreshIconRaw = new ImageIcon(iconRaw);
         Image img = refreshIconRaw.getImage();
@@ -59,6 +59,7 @@ public class Buttons extends JButton {
         super.setContentAreaFilled(false);
         super.setFocusPainted(false);
         super.setOpaque(false);
+        super.setToolTipText(alt);
         if (under) {
             super.setVerticalTextPosition(SwingConstants.BOTTOM);
             super.setHorizontalTextPosition(SwingConstants.CENTER);

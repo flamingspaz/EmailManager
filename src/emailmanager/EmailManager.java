@@ -11,10 +11,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class EmailManager extends JFrame
         implements ActionListener {
-    private final Buttons list = new Buttons("Refresh", "resource/refresh.png", true);
-    private final Buttons quit = new Buttons("Quit", "resource/close.png", true);
-    private final Buttons newMessage = new Buttons("New", "resource/edit.png", true);
-    private final Buttons label = new Buttons("Add Label", "resource/event.png", true);
+    private final Buttons list = new Buttons("Refresh", "resource/refresh.png", true, "Refresh");
+    private final Buttons quit = new Buttons("Quit", "resource/close.png", true, "Quit");
+    private final Buttons newMessage = new Buttons("New", "resource/edit.png", true, "New");
     // load icons
     private static ResultSetTable rst = MessageData.listAllRS();
 
@@ -37,13 +36,10 @@ public class EmailManager extends JFrame
         setIconImage(logoIcon.getImage());
         // close application only by clicking the quit button
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        JPanel top = new JPanel(new FlowLayout());
+        JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
         top.add(list);
         list.addActionListener(this);
         list.setAlignmentX(Component.LEFT_ALIGNMENT);
-        top.add(label);
-        label.addActionListener(this);
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
         top.add(newMessage);
         newMessage.addActionListener(this);
         newMessage.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -85,12 +81,14 @@ public class EmailManager extends JFrame
             refresh();
         } else if (e.getSource() == newMessage) {
             new NewMessage();
-        } else if (e.getSource() == label) {
-            new LabelMessages(rst.getValueAt(rst.getSelectedRow(), 0).toString());
         } else if (e.getSource() == quit) {
             //MessageData.reset(); // Take this out
             MessageData.close();
             System.exit(0);
         }
+    }
+    
+    public static void addLabel() {
+        new LabelMessages(rst.getValueAt(rst.getSelectedRow(), 0).toString());
     }
 }

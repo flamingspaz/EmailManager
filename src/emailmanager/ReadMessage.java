@@ -12,12 +12,14 @@ public class ReadMessage extends JPanel
     // Define our variables and create our objects
     private String id;
     private JTextField priority = new JTextField(2); // Create a text field object
-    private Buttons update = new Buttons(" Update", "resource/save.png", false);
-    private Buttons delete = new Buttons(" Delete", "resource/delete.png", false);
+    private Buttons update = new Buttons("", "resource/save.png", false, "Update Priority");
+    private final Buttons label = new Buttons("", "resource/event.png", true, "Add Label");
+    private Buttons delete = new Buttons("", "resource/delete.png", false, "Delete Message");
     private JTextArea textArea = new JTextArea(); // Create a text area object
     private JScrollPane scrollPane = new JScrollPane(textArea); // Create a scroll pane object
     ImageIcon infoIcon = new ImageIcon("resource/alert.png");
     private String prid;
+    private JLabel detailsLabel = new JLabel("<html>From: <br/>To:  <br/>Priority:  <br/><br/>Subject: </html>", SwingConstants.LEFT);
     // Define the constructor
     public ReadMessage(String id) {
         // Set up the layout
@@ -25,12 +27,19 @@ public class ReadMessage extends JPanel
         setSize(1200, 250); // Set the window size to 500x250
         
         // Draw the components
-        JPanel top = new JPanel(); // Create a JPanel object
+        JPanel top = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Create a JPanel object
         // Add some components to the JPanel
         top.add(new JLabel("Enter Priority (1-5):"));
+        
+        label.addActionListener(this);
         top.add(priority);
         top.add(update);
+        top.add(label);
         top.add(delete);
+        
+        update.setPreferredSize(new Dimension(32, 32));
+        label.setPreferredSize(new Dimension(32, 32));
+        delete.setPreferredSize(new Dimension(32, 32));
         update.addActionListener(this); // Add an action listener to the button with the object that called it as an argument
         delete.addActionListener(this);
         add("North", top); // Draw the JPanel at the top (North borderlayout)
@@ -42,11 +51,16 @@ public class ReadMessage extends JPanel
         textArea.setWrapStyleWord(true); // Wrap around words instead of chars.
         textArea.setPreferredSize(new Dimension(500, 400)); // Set the text area size to 450x150
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); // Always show the vertical scrollbar
-        scrollPane.setPreferredSize(new Dimension(500, 400)); // Set the scroll pane to 450x150
+        scrollPane.setPreferredSize(new Dimension(500, 350)); // Set the scroll pane to 450x150
 
-        JPanel middle = new JPanel(); // Create a JPanel object
-        middle.add(scrollPane); // add the scroll pane to our middle JPanel
+        JPanel middle = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Create a JPanel object
+
+        middle.add(detailsLabel);
         add("Center", middle); // Draw the middle JPane in the center
+        
+        JPanel bottom = new JPanel(); // Create a JPanel object
+        bottom.add(scrollPane); // add the scroll pane to our middle JPanel
+        add("South", bottom); // Draw the middle JPane in the center
 
         displayMessage(id); // Call displayMessage once to populate the text area
         
@@ -71,7 +85,9 @@ public class ReadMessage extends JPanel
             MessageData.deleteMessage(prid);
             EmailManager.refresh();
             displayMessage(Integer.toString(Integer.parseInt(prid) - 1)); // if possible, show the last message
-        }
+        } else if (e.getSource() == label) {
+            EmailManager.addLabel();
+        } 
     }
 
     // Our displayMessage method
@@ -82,12 +98,8 @@ public class ReadMessage extends JPanel
             textArea.setText("No such message"); // Tell the user they're doing it wrong
         } else {
             // Populate the text area with the message details
-            textArea.setText("Subject: " + subject); // Show the subject in the text area
-            textArea.append("\nFrom: " + MessageData.getSender(id)); // for some reason, immediately replace the subject with the message sender
-            // These append as opposed to replace so we can see them all
-            textArea.append("\nTo: " + MessageData.getRecipient(id)); // Append who the message was to, in case you forgot your name
-            textArea.append("\nPriority: " + MessageData.stars(MessageData.getPriority(id))); // Append the priority of the message
-            textArea.append("\n\n" + MessageData.getMessage(id)); // Append two newlines and then the message body
+            detailsLabel.setText("<html>From: " + MessageData.getSender(id) + "<br/>To: " + MessageData.getRecipient(id) + "<br/>Priority: " + MessageData.stars(MessageData.getPriority(id)) + "<br/><br/>Subject: " + subject + "</html>");
+            textArea.setText("\n" + MessageData.getMessage(id)); // Append two newlines and then the message body
         }
     }
 }

@@ -18,8 +18,8 @@ public class LabelMessages extends JFrame implements ActionListener {
     
     private JTextField msgId = new JTextField(2);
     private JComboBox label = new JComboBox(EmailManager.labels.toArray());
-    private Buttons addBtn = new Buttons("", "resource/add.png", false);
-    private Buttons closeBtn = new Buttons(" Close", "resource/cancel.png", false);
+    private Buttons addBtn = new Buttons("", "resource/add.png", false, "Add Label");
+    private Buttons closeBtn = new Buttons(" Close", "resource/cancel.png", false, "Close");
     private JTextArea textArea = new JTextArea();
     private JScrollPane scrollPane = new JScrollPane(textArea);
     private String id;
