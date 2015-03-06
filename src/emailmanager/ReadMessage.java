@@ -42,7 +42,7 @@ public class ReadMessage extends JPanel
         delete.setPreferredSize(new Dimension(32, 32));
         update.addActionListener(this); // Add an action listener to the button with the object that called it as an argument
         delete.addActionListener(this);
-        add("North", top); // Draw the JPanel at the top (North borderlayout)
+        add("Center", top); // Draw the JPanel at the top (North borderlayout)
 
         // TEXT!
         // SCROLL BARS!
@@ -56,7 +56,7 @@ public class ReadMessage extends JPanel
         JPanel middle = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Create a JPanel object
 
         middle.add(detailsLabel);
-        add("Center", middle); // Draw the middle JPane in the center
+        add("North", middle); // Draw the middle JPane in the center
         
         JPanel bottom = new JPanel(); // Create a JPanel object
         bottom.add(scrollPane); // add the scroll pane to our middle JPanel
@@ -71,8 +71,15 @@ public class ReadMessage extends JPanel
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == update) { // If the update button was pressed
             try {
+                
                 int priorityValue = Integer.parseInt(priority.getText()); // Parse the priority entered by user as an Integer
-                MessageData.setPriority(prid, priorityValue); // Set the priority of the message
+                if (priorityValue <= 5 && priorityValue >= 1) {
+                    MessageData.setPriority(prid, priorityValue); // Set the priority of the message
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Please enter a number between 1 and 5", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
+                }
+                
             }
             catch (Exception ex) {
                 System.out.println(ex);
