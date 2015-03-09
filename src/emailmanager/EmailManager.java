@@ -87,7 +87,7 @@ public class EmailManager extends JFrame
         } else if (e.getSource() == newMessage) {
             new NewMessage();
         } else if (e.getSource() == quit) {
-            //MessageData.reset(); // Take this out
+            //MessageData.reset(); // uncomment this if you want to reset all messages in the db to the default ones
             MessageData.close();
             System.exit(0);
         }
