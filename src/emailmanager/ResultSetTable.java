@@ -9,7 +9,8 @@ package emailmanager;
  *
  * @author yousef
  */
-// 
+// some code from http://fahdshariff.blogspot.co.uk/2010/02/display-any-resultset-in-jtable.html
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
