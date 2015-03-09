@@ -15,17 +15,17 @@ import javax.swing.*;
  */
 public class NewMessage extends JFrame implements ActionListener {
 
+    // define our components
     private final JTextField recipient = new JTextField(30);
     private final JTextField subjectTxt = new JTextField(30);
-    //private JButton sendBtn = new JButton("Send");
     private final Buttons sendBtn = new Buttons(" Send", "resource/foward.png", false, "Send Message");
     private final Buttons discardBtn = new Buttons(" Discard", "resource/cancel.png", false, "Discard Message");
-    //private JButton discardBtn = new JButton("Discard");
     private final JTextArea textArea = new JTextArea();
     private final JScrollPane scrollPane = new JScrollPane(textArea);
     ImageIcon realInfoIcon = new ImageIcon("resource/information.png");
 
     private void confirmClose() {
+        // make sure we actually want to close this window, someone might have typed out a novel.
         int checkIfRlySure = JOptionPane.showConfirmDialog(null, "Are you sure you want to discard your email?", "Warning", JOptionPane.YES_NO_OPTION, 0, realInfoIcon);
         if (checkIfRlySure == 0) {
             setVisible(false);
@@ -79,16 +79,16 @@ public class NewMessage extends JFrame implements ActionListener {
         if (e.getSource() == discardBtn) {
             confirmClose();
         } else if (e.getSource() == sendBtn) {
-            if (subjectTxt.getText().toString().isEmpty()) {
+            if (subjectTxt.getText().toString().isEmpty()) { // does this email have an empty subject?
                 int noSubConfirm = JOptionPane.showConfirmDialog(null, "This message does not have a subject. Are you sure you want to send it?", "No Subject", JOptionPane.YES_NO_OPTION, 0, realInfoIcon);
                 if (noSubConfirm == JOptionPane.YES_OPTION) {
-                    MessageData.sendMessage(recipient.getText(), "Chris@redwich.ac.uk", subjectTxt.getText(), textArea.getText());
+                    MessageData.sendMessage(recipient.getText(), "Chris@redwich.ac.uk", subjectTxt.getText(), textArea.getText()); // send with no subject if you say so, user!
                     EmailManager.refresh();
                     setVisible(false);
                     dispose();
                 }
             } else {
-                //MessageData.sendMessage(msgId.getText().toString(), "Chris@redwich.ac.uk", subjectTxt.getText().toString(), recipient.getText().toString(), textArea.getText().toString(), 0);
+                // everything looks good, send off the message.
                 MessageData.sendMessage(recipient.getText(), "Chris@redwich.ac.uk", subjectTxt.getText(), textArea.getText());
                 EmailManager.refresh();
                 setVisible(false);

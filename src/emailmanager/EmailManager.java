@@ -10,10 +10,11 @@ import javax.swing.event.ListSelectionListener;
 public class EmailManager extends JFrame
         implements ActionListener {
 
+    // load our fancy buttons
     private final Buttons list = new Buttons("Refresh", "resource/refresh.png", true, "Refresh");
     private final Buttons quit = new Buttons("Quit", "resource/close.png", true, "Quit");
     private final Buttons newMessage = new Buttons("New", "resource/edit.png", true, "New");
-    // load icons
+    // load our messages table
     private static ResultSetTable rst = MessageData.listAllRS();
 
     private static final JScrollPane scrollPane = new JScrollPane(rst);
@@ -28,6 +29,7 @@ public class EmailManager extends JFrame
     }
 
     public EmailManager() {
+        // basic layout and decoration
         setLayout(new BorderLayout());
         setSize(1200, 600);
         setResizable(false);
@@ -35,6 +37,8 @@ public class EmailManager extends JFrame
         setIconImage(logoIcon.getImage());
         // close application only by clicking the quit button
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        
+        // make a panel and add components to it
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
         top.add(list);
         list.addActionListener(this);
@@ -63,7 +67,7 @@ public class EmailManager extends JFrame
     }
 
     public static void refresh() {
-        // need to do this
+        // refresh our JTable with new data
         scrollPane.getViewport().remove(rst);
         rst = MessageData.listAllRS();
         rst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -90,6 +94,7 @@ public class EmailManager extends JFrame
     }
 
     public static void addLabel() {
+        // create a label window with the selected message ID already inputted
         new LabelMessages(rst.getValueAt(rst.getSelectedRow(), 0).toString());
     }
 }

@@ -15,6 +15,7 @@ import javax.swing.*;
  */
 public class LabelMessages extends JFrame implements ActionListener {
 
+    // define our components
     private final JTextField msgId = new JTextField(2);
     private final JComboBox label = new JComboBox(EmailManager.labels.toArray());
     private final Buttons addBtn = new Buttons("", "resource/add.png", false, "Add Label");
@@ -70,21 +71,24 @@ public class LabelMessages extends JFrame implements ActionListener {
         if (e.getSource() == addBtn) {
             boolean exists = false;
             for (int i = 0; i < label.getItemCount(); i++) {
+                // does this label aready exist in the jcombobox?
                 if (label.getItemAt(i) == label.getSelectedItem().toString()) {
-                    exists = true;
+                    exists = true; // it does!
                 }
             }
             if (!exists) {
-                // need to limit the amount of previous entries maybe
+                // it doesn't? let's add it in.
                 label.addItem(label.getSelectedItem().toString());
                 EmailManager.labels.add(label.getSelectedItem().toString());
             }
             if (MessageData.getMessage(msgId.getText()) != null) {
                 // used to check for empty label, see commit f3b58d5
+                // and then add our label to the message.
                 MessageData.setLabel(msgId.getText(), label.getSelectedItem().toString());
                 textArea.setText(MessageData.listLabelled(label.getSelectedItem().toString()));
                 EmailManager.refresh();
             } else {
+                // you dun goofed
                 JOptionPane.showMessageDialog(null, "Please enter a valid Message ID.", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
             }
         }
