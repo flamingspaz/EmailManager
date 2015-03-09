@@ -8,19 +8,19 @@ package emailmanager;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 /**
  *
  * @author yousef
  */
 public class LabelMessages extends JFrame implements ActionListener {
 
-    
-    private JTextField msgId = new JTextField(2);
-    private JComboBox label = new JComboBox(EmailManager.labels.toArray());
-    private Buttons addBtn = new Buttons("", "resource/add.png", false, "Add Label");
-    private Buttons closeBtn = new Buttons(" Close", "resource/cancel.png", false, "Close");
-    private JTextArea textArea = new JTextArea();
-    private JScrollPane scrollPane = new JScrollPane(textArea);
+    private final JTextField msgId = new JTextField(2);
+    private final JComboBox label = new JComboBox(EmailManager.labels.toArray());
+    private final Buttons addBtn = new Buttons("", "resource/add.png", false, "Add Label");
+    private final Buttons closeBtn = new Buttons(" Close", "resource/cancel.png", false, "Close");
+    private final JTextArea textArea = new JTextArea();
+    private final JScrollPane scrollPane = new JScrollPane(textArea);
     private String id;
     ImageIcon infoIcon = new ImageIcon("resource/alert.png");
 
@@ -61,12 +61,13 @@ public class LabelMessages extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == closeBtn) {
             setVisible(false);
             dispose();
         }
-        if (e.getSource() == addBtn) { 
+        if (e.getSource() == addBtn) {
             boolean exists = false;
             for (int i = 0; i < label.getItemCount(); i++) {
                 if (label.getItemAt(i) == label.getSelectedItem().toString()) {
@@ -74,18 +75,17 @@ public class LabelMessages extends JFrame implements ActionListener {
                 }
             }
             if (!exists) {
-                   // need to limit the amount of previous entries maybe
-               label.addItem(label.getSelectedItem().toString());
-               EmailManager.labels.add(label.getSelectedItem().toString());
+                // need to limit the amount of previous entries maybe
+                label.addItem(label.getSelectedItem().toString());
+                EmailManager.labels.add(label.getSelectedItem().toString());
             }
             if (MessageData.getMessage(msgId.getText()) != null) {
-                    // used to check for empty label, see commit f3b58d5
-                    MessageData.setLabel(msgId.getText(), label.getSelectedItem().toString());
-                    textArea.setText(MessageData.listLabelled(label.getSelectedItem().toString()));
-                    EmailManager.refresh(); 
-            }
-            else {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid Message ID.", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
+                // used to check for empty label, see commit f3b58d5
+                MessageData.setLabel(msgId.getText(), label.getSelectedItem().toString());
+                textArea.setText(MessageData.listLabelled(label.getSelectedItem().toString()));
+                EmailManager.refresh();
+            } else {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Message ID.", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
             }
         }
     }

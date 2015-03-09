@@ -4,7 +4,6 @@ package emailmanager;
 // NOTE: You should not have to make any changes to the other
 // Java GUI classes for this to work, if you complete it correctly.
 // Indeed these classes shouldn't even need to be recompiled
-
 import java.sql.*;
 import java.io.*;
 import static java.lang.System.*;
@@ -37,10 +36,10 @@ public class MessageData {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }    
-    
+    }
+
     public static void reset() {
-        String[] defaultMessages =  {
+        String[] defaultMessages = {
             "'Kate@redwich.ac.uk','Chris@redwich.ac.uk', 'Hello', '> How is the course going?', '', 0",
             "'Chris@redwich.ac.uk', 'Kate@redwich.ac.uk', 'Re: Hello', '> How is the course going?\n\nBrilliant, thanks. The students are all fantastic and are going to get top marks in their coursework.', '', 0",
             "'Asif@redwich.ac.uk', 'Chris@redwich.ac.uk', 'Exam', 'I have nearly finished writing the exam - I hope the students have revised hard.', '', 0",
@@ -56,12 +55,11 @@ public class MessageData {
                 System.out.println(sqlString);
                 stmt.executeUpdate(sqlString);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     private static String pad(String string, int width) {
         if (string == null) {
             string = "";
@@ -125,18 +123,18 @@ public class MessageData {
             System.out.println(e);
         }
         return listLabelled(label);
-    }    
-    
-        public static void sendMessage(String to, String sender, String subject, String message) {
-        String updateStr = "INSERT INTO STUDENT.MESSAGES(TOO, SENDER, SUBJECT, MESSAGE, LABEL, PRIORITY) VALUES('" + to + "', '" + sender +  "', '" + subject + "', '" + message + "', '', 0" + ")";
+    }
+
+    public static void sendMessage(String to, String sender, String subject, String message) {
+        String updateStr = "INSERT INTO STUDENT.MESSAGES(TOO, SENDER, SUBJECT, MESSAGE, LABEL, PRIORITY) VALUES('" + to + "', '" + sender + "', '" + subject + "', '" + message + "', '', 0" + ")";
         System.out.println(updateStr);
         try {
             stmt.executeUpdate(updateStr);
         } catch (Exception e) {
             System.out.println(e);
         }
-    }   
-    
+    }
+
     static String getMessage(String id) {
         try {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!
@@ -177,7 +175,7 @@ public class MessageData {
             System.out.println(e);
         }
     }
-    
+
     public static int getPriority(String id) {
         try {
             // Need single quote marks ' around the id field in SQL. This is easy to get wrong!
@@ -214,7 +212,7 @@ public class MessageData {
             // SELECT * FROM MessageTable WHERE id = '04'
             ResultSet res = stmt.executeQuery("SELECT * FROM STUDENT.MESSAGES WHERE ID = " + id + "");
             if (res.next()) { // there is a result
-			//To is a reserved word in Derby SQL, Too has been used instead
+                //To is a reserved word in Derby SQL, Too has been used instead
                 return res.getString("Too");
             } else {
                 return null; // null means no such item
@@ -309,14 +307,13 @@ public class MessageData {
             System.out.println(e);
         }
     }
-    
+
     public static ResultSetTable listAllRS() {
         try {
             ResultSet rset = stmt.executeQuery("SELECT * from STUDENT.MESSAGES");
             ResultSetTable rst = new ResultSetTable(rset);
             return rst;
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;

@@ -8,35 +8,36 @@ import javax.swing.*;
 public class ReadMessage extends JPanel
         implements ActionListener {
 
-    
     // Define our variables and create our objects
     private String id;
-    private JTextField priority = new JTextField(2); // Create a text field object
-    private Buttons update = new Buttons("", "resource/save.png", false, "Update Priority");
+    private final JTextField priority = new JTextField(2); // Create a text field object
+    private final Buttons update = new Buttons("", "resource/save.png", false, "Update Priority");
     private final Buttons label = new Buttons("", "resource/event.png", true, "Add Label");
-    private Buttons delete = new Buttons("", "resource/delete.png", false, "Delete Message");
-    private JTextArea textArea = new JTextArea(); // Create a text area object
-    private JScrollPane scrollPane = new JScrollPane(textArea); // Create a scroll pane object
+    private final Buttons delete = new Buttons("", "resource/delete.png", false, "Delete Message");
+    private final JTextArea textArea = new JTextArea(); // Create a text area object
+    private final JScrollPane scrollPane = new JScrollPane(textArea); // Create a scroll pane object
     ImageIcon infoIcon = new ImageIcon("resource/alert.png");
     private String prid;
     private JLabel detailsLabel = new JLabel("<html>From: <br/>To:  <br/>Priority:  <br/><br/>Subject: </html>", SwingConstants.LEFT);
+
     // Define the constructor
+
     public ReadMessage(String id) {
         // Set up the layout
         setLayout(new BorderLayout()); // Use a border layout
         setSize(1200, 250); // Set the window size to 500x250
-        
+
         // Draw the components
         JPanel top = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Create a JPanel object
         // Add some components to the JPanel
         top.add(new JLabel("Enter Priority (1-5):"));
-        
+
         label.addActionListener(this);
         top.add(priority);
         top.add(update);
         top.add(label);
         top.add(delete);
-        
+
         update.setPreferredSize(new Dimension(32, 32));
         label.setPreferredSize(new Dimension(32, 32));
         delete.setPreferredSize(new Dimension(32, 32));
@@ -57,13 +58,13 @@ public class ReadMessage extends JPanel
 
         middle.add(detailsLabel);
         add("North", middle); // Draw the middle JPane in the center
-        
+
         JPanel bottom = new JPanel(); // Create a JPanel object
         bottom.add(scrollPane); // add the scroll pane to our middle JPanel
         add("South", bottom); // Draw the middle JPane in the center
 
         displayMessage(id); // Call displayMessage once to populate the text area
-        
+
         setVisible(true); // LET THERE BE EMAIL (make everything visible)
     }
 
@@ -71,30 +72,27 @@ public class ReadMessage extends JPanel
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == update) { // If the update button was pressed
             try {
-                
+
                 int priorityValue = Integer.parseInt(priority.getText()); // Parse the priority entered by user as an Integer
                 if (priorityValue <= 5 && priorityValue >= 1) {
                     MessageData.setPriority(prid, priorityValue); // Set the priority of the message
-                }
-                else {
+                } else {
                     JOptionPane.showMessageDialog(null, "Please enter a number between 1 and 5", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
                 }
-                
-            }
-            catch (Exception ex) {
+
+            } catch (Exception ex) {
                 System.out.println(ex);
                 JOptionPane.showMessageDialog(null, "Please enter a valid number.", "Error", JOptionPane.INFORMATION_MESSAGE, infoIcon);
             }
             displayMessage(prid); // Redraw the text area to reflect the changes
             EmailManager.refresh(); // redraw main window
-        }
-        else if (e.getSource() == delete) {
+        } else if (e.getSource() == delete) {
             MessageData.deleteMessage(prid);
             EmailManager.refresh();
             displayMessage(Integer.toString(Integer.parseInt(prid) - 1)); // if possible, show the last message
         } else if (e.getSource() == label) {
             EmailManager.addLabel();
-        } 
+        }
     }
 
     // Our displayMessage method

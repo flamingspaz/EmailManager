@@ -25,7 +25,7 @@ public class Buttons extends JButton {
         super.setContentAreaFilled(false);
         super.setFocusPainted(false);
         super.setOpaque(false);
-        
+
         super.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent evt) {
@@ -75,6 +75,7 @@ public class Buttons extends JButton {
                 setOpaque(true);
             }
 
+            @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 setBackground(UIManager.getColor("control"));
                 setBorderPainted(false);

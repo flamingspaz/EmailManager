@@ -1,16 +1,15 @@
 package emailmanager;
 
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
 public class EmailManager extends JFrame
         implements ActionListener {
+
     private final Buttons list = new Buttons("Refresh", "resource/refresh.png", true, "Refresh");
     private final Buttons quit = new Buttons("Quit", "resource/close.png", true, "Quit");
     private final Buttons newMessage = new Buttons("New", "resource/edit.png", true, "New");
@@ -18,16 +17,16 @@ public class EmailManager extends JFrame
     private static ResultSetTable rst = MessageData.listAllRS();
 
     private static final JScrollPane scrollPane = new JScrollPane(rst);
-    
+
     private static final String[] defaultLabels = {"", "Work", "Important", "Todo"};
     public static ArrayList<String> labels = new ArrayList<String>(Arrays.asList(defaultLabels));
     static ReadMessage readMessagePanel = new ReadMessage("");
     public static ImageIcon logoIcon = new ImageIcon("resource/logo.png");
+
     public static void main(String[] args) {
         new EmailManager();
     }
 
-    
     public EmailManager() {
         setLayout(new BorderLayout());
         setSize(1200, 600);
@@ -46,13 +45,13 @@ public class EmailManager extends JFrame
         top.add(quit);
         quit.addActionListener(this);
         quit.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        
-        add("North", top);        
-   
+
+        add("North", top);
+
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(670, 500));
         scrollPane.getViewport().setBackground(Color.WHITE);
-        
+
         JPanel west = new JPanel();
         west.add(scrollPane);
         add("West", west);
@@ -67,15 +66,17 @@ public class EmailManager extends JFrame
         // need to do this
         scrollPane.getViewport().remove(rst);
         rst = MessageData.listAllRS();
-                rst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        rst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollPane.getViewport().add(rst);
-        rst.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        rst.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
             public void valueChanged(ListSelectionEvent event) {
                 readMessagePanel.displayMessage(rst.getValueAt(rst.getSelectedRow(), 0).toString());
             }
         });
     }
-    
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
             refresh();
@@ -87,7 +88,7 @@ public class EmailManager extends JFrame
             System.exit(0);
         }
     }
-    
+
     public static void addLabel() {
         new LabelMessages(rst.getValueAt(rst.getSelectedRow(), 0).toString());
     }
